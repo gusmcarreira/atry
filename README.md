@@ -1,5 +1,7 @@
 # astry
 
+O componente EXPERIMENTAL é apenas um botão que eu usei para experimental a mensagem de erro.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
 
 ## Development server
