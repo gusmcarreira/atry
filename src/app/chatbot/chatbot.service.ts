@@ -43,7 +43,7 @@ export class ChatbotService {
     if (typeof message !== 'string') {
       let error_type = message.contexto.replace("\n", "<new_line>").replace("\t", "<tab>");
       let error_message = message.mensagem.replace("\n", "<new_line>").replace("\t", "<tab>");
-      message = `/EXTERNAL_CODE_MESSAGE{"code_message_student":"${error_type}", "code_message_answer":"${error_message}"}`
+      message = `/EXTERNAL_ERROR_MESSAGE{"error_type":"${error_type}", "error_message":"${error_message}"}`
     }
     const rasaMessageUrl = url + "/webhooks/rest/webhook";
     this.latestMessageArr = this.http
