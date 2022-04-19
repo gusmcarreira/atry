@@ -166,10 +166,14 @@ export class ChatWidgetComponent implements OnInit {
     if (message.trim() === '') {
       return
     }
-    // If button was written instead of clicking the button
-    if (this.messages[0] !== undefined && this.messages[0].type === "buttons") {
-      this.messages.shift();
+    // Verificar se existem butões (se sim, remover para o estudante nao poder clicar)
+    // Ou seja, só dá uma oportunidade de clicar neles
+    for (let i = 0; i < this.messages.length; i++) {
+      if (this.messages[i].type === "buttons") {
+        this.messages.splice(i, 1);
+      }
     }
+
     // Adiciona a mensagem do estudante ao array da conversa 
     this.addMessage(this.client, message, "text", 'sent');
 
@@ -184,7 +188,7 @@ export class ChatWidgetComponent implements OnInit {
     let i = 0
     while (messages[i]) {
       let code_str = ""
-      // Se a mensagem contiver botões, verificar se també contém texto
+      // Se a mensagem contiver botões, verificar se também contém texto
       if (messages[i].type === "buttons") {
         if (messages[i].message !== undefined) {
           this.addMessage(this.operator, messages[i].message, "text", 'received');

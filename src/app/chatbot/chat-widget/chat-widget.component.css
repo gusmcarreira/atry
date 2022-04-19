@@ -184,7 +184,7 @@ Received message style
 .chat-message-received .chat-message-code {
   background: #f9a080;
   font-family: monospace, monospace;
-  font-size: 10px;
+  font-size: 12px;
   border-radius: 12px;
   border-bottom-left-radius: 0;
   margin-left: 60px;
@@ -331,7 +331,7 @@ Sent message style
     bottom: 100px;
     right: 40px;
     height: 60vh;
-    width: 300px;
+    width: 350px;
     border-radius: 10px;
   }
 }
