@@ -22,7 +22,7 @@ export class ChatWidgetComponent implements OnInit {
   @Input() public botAvatar: string = "/assets/botAvatar.png";
   @Input() public userAvatar: string = "/assets/userAvatar.jpg";
   // URL para se conectar ao chatbot
-  @Input() public url: string = environment.LOCAL_URL_CHAT;
+  @Input() public url: string = environment.APP_URL_CHATBOT;
   // Primeira mensagem
   @Input() public startingMessage = 'Olá 👋, eu sou um monitor que está aqui para o ajudar. A qualquer momento poderá fazer perguntas como "O que é uma variável?", ou "Qual é um exemplo de uma condição?", que eu farei o meu melhor para responder! Estarei também aqui para quando tiver problemas na resolução dos seus exercicios!'
   // Controla se a janela aparece aberta ou fechada
