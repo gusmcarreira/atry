@@ -10,6 +10,11 @@ button {
     margin: 3px auto !important;
 }
 
-button:hover {
+.enabled:hover {
     background-color: #b8d3ee;
+}
+
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
