@@ -3,23 +3,45 @@
     <div class="chat-box" *ngIf="visible" [@fadeInOut]="visible">
         <!-----------HEADER--------->
         <div class="chat-box-header">
-            <div class="">
-                <!--<div class="operator-status">
-                    {{operator.status}}
-                    <span class="operator-status-online">●</span>
-                    <button class="chat-button-header" (click)="toggleChat()">✕</button>
-                </div>-->
-                <chat-avatar [image]="operator.avatar"></chat-avatar>
-                <h3 class="operator-name">
-                    {{operator.name}}
-                </h3>
+            <div [hidden]="isConceptOrderDisabled" class="order-window-main">
+                <div class="order-window-header">
+                    <h4>Algoritmo</h4>
+                </div>
+                <div class="order-window-body">
+                    <ng-container *ngFor="let concept of conceptsChosen">
+                        <button *ngIf="concept[0] === 'normal'" class="order-concept-normal" (click)="eraseChoice(concept[1], concept[2], concept[3])" title="Clica para remover">
+                            {{concept[1] + " " + concept[3]}} 
+                        </button>
+                        <div *ngIf="concept[0] === 'empty'" class="order-concept-empty">{{concept[1] + " "}}</div>
+                        <ng-container *ngIf="concept[0] === 'var'">
+                            <ng-container *ngFor="let info_var of concept[3]">
+                                <ng-container *ngIf="info_var !== '='">
+                                    <ng-container *ngIf="info_var !== ''">
+                                        <button *ngIf="checkArr(info_var) === false" class="order-concept-text" (click)="eraseChoice(concept[1], concept[2], info_var)" title="Clica para remover">
+                                            {{concept[1] + " " + info_var}}
+                                        </button>
+                                        <button *ngIf="checkArr(info_var) === true" class="order-concept-text" (click)="eraseChoice(concept[1], info_var[0], info_var)" title="Clica para remover">
+                                            {{info_var[1]}}
+                                        </button>
+                                    </ng-container>
+                                    <div *ngIf="info_var === ''" class="order-concept-simple">{{info_var}}</div>
+                                </ng-container>
+                                <div *ngIf="info_var === '='" class="order-concept-simple">{{info_var}}</div>
+                            </ng-container>
+                        </ng-container>      
+                    </ng-container>
+                </div>
+                
             </div>
+            <chat-avatar [image]="monitor.avatar"></chat-avatar>
+            <h3 class="operator-name">
+                {{monitor.name}}
+            </h3>
         </div>
         <!----------------------------->
-        <!------------BODY------------->
-        <div class="chat-box-main">
-            <div class="chat-message-bottom"></div>
-            <ng-container *ngFor="let message of messages" #bottom>
+        <!------------BODY (scroll)="myScrollFunction()"------------->
+        <div class="chat-box-main"  #bottom>
+            <ng-container *ngFor="let message of messages.reverse()">
                 <div class="chat-message" [class.chat-message-received]='message.direction === "received"' [@fadeIn]
                     [class.chat-message-sent]="message.direction === 'sent'">
                     <!--Typing dots-->
@@ -37,7 +59,13 @@
                     <!--Buttons Message-->
                     <ng-container *ngIf='message.type === "buttons"'>
                         <div *ngFor="let btn of message.text">
-                            <chat-buttons [btnLabel]="btn.title" [btnPayload]="btn.payload" (send)="sendMessage($event)" class="chat-message-buttons"></chat-buttons>
+                            <chat-buttons [titleBtn]="'Selecionar'" [btnLabel]="btn.title" [btnPayload]="btn.payload" (send)="sendMessage($event)" class="chat-message-buttons"></chat-buttons>
+                        </div>
+                    </ng-container>
+                    <!--Order Buttons Message-->
+                    <ng-container *ngIf='message.type === "buttons_order"'>
+                        <div *ngFor="let btn of message.text">
+                            <chat-buttons [titleBtn]="'Clica para selecionar opção'" [id]="btn[0]" [btnLabel]="btn[1]" class="chat-message-buttons-order"></chat-buttons>
                         </div>
                     </ng-container>
                     <!--Show Date and Time-->
@@ -58,7 +86,5 @@
     <button class="chat-button" (click)="toggleChat()">
         <span *ngIf="visible">✕</span>
         <img *ngIf="!visible" [attr.src]="botAvatar" class="chat-button-img"/>
-        <!--POP ERROR IMAGE-->
-        <!--<chat-error-image></chat-error-image>-->
     </button>
 </div>
