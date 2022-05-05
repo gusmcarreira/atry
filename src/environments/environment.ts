@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   URL_CHAT: 'https://www.32b.com.br:3001',
   LOCAL_URL_CHAT: 'http://localhost:5005',
+  APP_URL_CHATBOT: 'https://www.32b.com.br:5005',
 };
 
 /*
